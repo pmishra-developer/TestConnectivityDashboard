@@ -30,9 +30,8 @@ export default function DatabaseTester() {
     setResult(null);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
       const response = await fetch(
-        `${apiUrl}/api/database/test`,
+        '/api/database/test',
         {
           method: 'POST',
           headers: {
@@ -85,12 +84,15 @@ export default function DatabaseTester() {
             name="connectionString"
             value={formData.connectionString}
             onChange={handleChange}
-            placeholder="postgresql://user:password@host:port/database"
+            placeholder="postgresql://localhost:5432/postgres"
             required
             className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow font-mono text-sm"
           />
           <p className="mt-2 text-xs text-slate-500">
-            Format: postgresql://user:password@host:port/database
+            PostgreSQL format: postgresql://localhost:5432/database_name
+          </p>
+          <p className="mt-1 text-xs text-slate-400">
+            Do not include username/password in URL - use fields below
           </p>
         </div>
 
