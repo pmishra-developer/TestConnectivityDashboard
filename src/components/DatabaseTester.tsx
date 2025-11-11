@@ -30,14 +30,15 @@ export default function DatabaseTester() {
     setResult(null);
 
     try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/test-database`,
+        `${apiUrl}/api/database/test`,
         {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify(formData),
         }
       );

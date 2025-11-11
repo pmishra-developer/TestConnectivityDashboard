@@ -87,15 +87,16 @@ export default function EmailTester() {
     setResult(null);
 
     try {
-      const endpoint = provider === 'smtp' ? 'send-email' : 'send-email-ses';
+      const endpoint = provider === 'smtp' ? 'smtp' : 'ses';
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/${endpoint}`,
+        `${apiUrl}/api/email/${endpoint}`,
         {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify(formData),
         }
       );
